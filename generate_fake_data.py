@@ -49,7 +49,7 @@ def create_fake_entry():
     ]
 
 # Generate fake data
-data = [create_fake_entry() for _ in range(500)]  # Generating 800 fake records
+data = [create_fake_entry() for _ in range(500)]  # Generating 500 fake records
 
 # Create a DataFrame
 df = pd.DataFrame(data, columns=[

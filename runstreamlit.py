@@ -60,15 +60,9 @@ def main():
     # Sidebar filters
     st.sidebar.title("Filters")
     chapter = st.sidebar.selectbox('Chapter', chapter_list)
-    if chapter:
-        zip_code_list = [''] + list(df[df['Chapter Affiliation'] == chapter]['Zip Code'].unique())
-    else:
-        zip_code_list = [''] + list(df['Zip Code'].unique())
-    zip_code_list.sort()
-    zip_code = st.sidebar.selectbox('Zip Code', zip_code_list)
 
     # Generate and display the map
-    generate_html_map(df, 'data/yng_map.html', chapter_filter=chapter, zip_code_filter=zip_code)
+    generate_html_map(df, 'data/yng_map.html', chapter_filter=chapter)
     st.components.v1.html(open('data/yng_map.html').read(), height=600, scrolling=False)
 
 if __name__ == "__main__":

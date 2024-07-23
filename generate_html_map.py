@@ -3,13 +3,10 @@ import folium
 from folium.plugins import MarkerCluster
 import random
 
-def generate_html_map(df, output_html_file, center=(37.0902, -95.7129), zoom_start=4, chapter_filter=None, zip_code_filter=None):
-    # Filter data based on chapter and zip code
+def generate_html_map(df, output_html_file, center=(37.0902, -95.7129), zoom_start=4, chapter_filter=None):
+    # Filter data based on chapter
     if chapter_filter:
         df = df[df['Chapter Affiliation'] == chapter_filter]
-
-    if zip_code_filter:
-        df = df[df['Zip Code'] == zip_code_filter]
 
     if not df.empty:
         # Calculate the bounds of the filtered data
@@ -24,15 +21,13 @@ def generate_html_map(df, output_html_file, center=(37.0902, -95.7129), zoom_sta
         max_distance = max(distance_lat, distance_lon)
 
         if max_distance < 0.01:
-            zoom_start = 14
+            zoom_start = 15
         elif max_distance < 0.1:
             zoom_start = 12
         elif max_distance < 1:
             zoom_start = 10
-        elif max_distance < 2:
-            zoom_start = 8
         else:
-            zoom_start = 6
+            zoom_start = 8
     else:
         # Default to the entire US
         bounds = [[24.396308, -125.0], [49.384358, -66.93457]]
