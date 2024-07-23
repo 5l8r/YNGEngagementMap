@@ -50,7 +50,7 @@ def main():
             <img src="https://i.imgur.com/U5vCbok.png" alt="YNG Logo"/>
             <div>
                 <h1>YNG Pacific US Engagement Map</h1>
-                <p>Connecting YNG Members</p>
+                <p>NOTE: ALL USER DATA BELOW IS RANDOMLY GENERATED AND NOT REAL!</p>
             </div>
         </div>
         """,
