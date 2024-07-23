@@ -27,7 +27,7 @@ def main():
         }
         .header img {
             width: 150px;
-            margin-top: 20px;  /* Adjust this value as needed */
+            margin-top: 0px;  /* Adjust this value as needed */
         }
         .header h1 {
             margin-left: 20px;
@@ -37,6 +37,18 @@ def main():
             margin-left: 20px;
             margin-top: 0;
             font-size: 18px;
+        }
+        .no-results-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: black;  /* Set text color to black */
+            padding: 20px;
+            border: 2px solid black;
+            z-index: 9999;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         </style>
         """,
@@ -49,7 +61,7 @@ def main():
         <div class="header">
             <img src="https://i.imgur.com/U5vCbok.png" alt="YNG Logo"/>
             <div>
-                <h1>YNG Pacific US Engagement Map</h1>
+                <h1>Pacific US Engagement Map</h1>
                 <p>NOTE: ALL USER DATA BELOW IS RANDOMLY GENERATED AND NOT REAL!</p>
             </div>
         </div>
@@ -60,10 +72,22 @@ def main():
     # Sidebar filters
     st.sidebar.title("Filters")
     chapter = st.sidebar.selectbox('Chapter', chapter_list)
+    interest = st.sidebar.selectbox('Interest', interest_list)
+    industry = st.sidebar.selectbox('Industry', industry_list)
 
     # Generate and display the map
-    generate_html_map(df, 'data/yng_map.html', chapter_filter=chapter)
+    data_found = generate_html_map(df, 'data/yng_map.html', chapter_filter=chapter, interest_filter=interest, industry_filter=industry)
     st.components.v1.html(open('data/yng_map.html').read(), height=600, scrolling=False)
+
+    if not data_found:
+        st.markdown(
+            """
+            <div class="no-results-popup">
+                Sorry, we didn't find anything that matches your criteria.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 if __name__ == "__main__":
     # Load the data
@@ -74,7 +98,15 @@ if __name__ == "__main__":
     APP_SUB_TITLE = 'Connecting YNG Members'
     
     # Get the list of chapters
-    chapter_list = [''] + list(df['Chapter Affiliation'].unique())
+    chapter_list = ['Pacific US Region'] + list(df['Chapter Affiliation'].unique())
     chapter_list.sort()
+
+    # Get the list of interests
+    interest_list = ['Any'] + list(set([interest for sublist in df['Interests'].str.split(', ') for interest in sublist]))
+    interest_list.sort()
+
+    # Get the list of industries
+    industry_list = ['Any'] + list(df['Industry'].unique())
+    industry_list.sort()
 
     main()

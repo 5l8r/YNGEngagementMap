@@ -21,6 +21,18 @@ chapters = {
 # Define email domains
 email_domains = ['gmail.com', 'yahoo.com', 'icloud.com', 'outlook.com', 'stanford.edu', 'ucla.edu', 'company.com', 'aol.com', 'mac.com']
 
+# Define interests and industries
+interests = [
+    'Skiing', 'Rock Climbing', 'Surfing', 'Reading', 'Travelling', 'Cooking', 'Gardening',
+    'Photography', 'Painting', 'Music', 'Sports', 'Hiking', 'Gaming', 'Technology', 'Finance'
+]
+
+industries = [
+    'Automotive', 'Banking', 'Construction', 'Entertainment', 'Financial Services', 
+    'Information Technology', 'Legal Services', 'Manufacturing', 'Pharmaceuticals', 
+    'Public Sector', 'Real Estate', 'Student'
+]
+
 # Function to create a fake email
 def create_fake_email(name):
     domain = random.choice(email_domains + [fake.domain_name()])
@@ -43,9 +55,11 @@ def create_fake_entry():
     instagram_public = random.choice(['yes', 'no']) if instagram != 'NP' else 'NP'
     phone_public = random.choice(['yes', 'no']) if phone_number != 'NP' else 'NP'
     email_public = random.choice(['yes', 'no'])
+    member_interests = ', '.join(random.sample(interests, k=random.randint(1, 3)))
+    industry = random.choice(industries)
     return [
         name, chapter_affiliation, zip_code, linkedin, instagram, phone_number, email,
-        linkedin_public, instagram_public, phone_public, email_public
+        linkedin_public, instagram_public, phone_public, email_public, member_interests, industry
     ]
 
 # Generate fake data
@@ -54,7 +68,7 @@ data = [create_fake_entry() for _ in range(500)]  # Generating 500 fake records
 # Create a DataFrame
 df = pd.DataFrame(data, columns=[
     'Name', 'Chapter Affiliation', 'Zip Code', 'LinkedIn', 'Instagram', 'Phone Number', 'Email',
-    'LinkedIn Public', 'Instagram Public', 'Phone Number Public', 'Email Public'
+    'LinkedIn Public', 'Instagram Public', 'Phone Number Public', 'Email Public', 'Interests', 'Industry'
 ])
 
 # Save to CSV
