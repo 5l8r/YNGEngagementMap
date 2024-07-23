@@ -1,0 +1,6 @@
+pandas
+geopy
+faker
+folium
+streamlit
+streamlit_folium
