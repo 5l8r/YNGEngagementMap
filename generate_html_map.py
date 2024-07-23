@@ -85,7 +85,7 @@ def generate_html_map(df, output_html_file, chapter_filter=None, interest_filter
 
         for index, row in df.iterrows():
             popup_text = f"""
-            <div style="font-family:'Montserrat',sans-serif; font-size:12px; width:250px; border:1px solid #bebed2; padding:10px; background-color:#f9f9f9; border-radius:5px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+            <div style="font-family:'Montserrat',sans-serif; font-size:12px; width:250px; padding:10px; background-color:#f9f9f9; border-radius:5px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
                 <b>Name:</b> {row['Name']}<br>
                 <b>Chapter Affiliation:</b> {row['Chapter Affiliation']}<br>
                 <b>Interests:</b> {row['Interests']}<br>
@@ -95,14 +95,15 @@ def generate_html_map(df, output_html_file, chapter_filter=None, interest_filter
                 {"<b>Phone Number:</b> Request Needed to Access<br>" if row['Phone Number'] == 'NP' else f"<b>Phone Number:</b> {row['Phone Number']}<br>"}
                 {"<b>Email:</b> Request Needed to Access<br>" if row['Email'] == 'NP' else f"<b>Email:</b> {row['Email']}<br>"}
                 <form style="margin-top:10px;">
-                    <p type="Your Name:"><input type="text" id="name" name="name" style="width:calc(50% - 12px); margin-right:12px; margin-bottom:5px;" placeholder="Your name.."></input><input type="tel" id="phone" name="phone" style="width:calc(50% - 12px);" placeholder="Your phone.."></input></p>
-                    <p type="Your Email:"><input type="email" id="email" name="email" style="width:calc(50% - 12px); margin-right:12px;" placeholder="Your email.."></input><input type="text" id="linkedin" name="linkedin" style="width:calc(50% - 12px);" placeholder="Your LinkedIn.."></input></p>
-                    <p type="Your Instagram:"><input type="text" id="instagram" name="instagram" style="width:calc(50% - 12px); margin-right:12px;" placeholder="Your Instagram.."></input></p>
-                    <p type="Your Note:"><textarea id="note" name="note" maxlength="400" style="width:100%;" placeholder="Your note.."></textarea></p>
+                    <p type="Your Name:"><input type="text" id="name" name="name" style="width:calc(50% - 12px); margin-right:12px; margin-bottom:5px; border:none;" placeholder="Your name.."></input><input type="tel" id="phone" name="phone" style="width:calc(50% - 12px); border:none;" placeholder="Your phone.."></input></p>
+                    <p type="Your Email:"><input type="email" id="email" name="email" style="width:calc(50% - 12px); margin-right:12px; border:none;" placeholder="Your email.."></input><input type="text" id="linkedin" name="linkedin" style="width:calc(50% - 12px); border:none;" placeholder="Your LinkedIn.."></input></p>
+                    <p type="Your Instagram:"><input type="text" id="instagram" name="instagram" style="width:calc(50% - 12px); margin-right:12px; border:none;" placeholder="Your Instagram.."></input></p>
+                    <p type="Your Note:"><textarea id="note" name="note" maxlength="400" style="width:100%; border:none;" placeholder="Your note.."></textarea></p>
                     <button type="submit" style="width:100%; padding:8px; background:#78788c; color:white; border:none; border-radius:3px;">Request</button>
                 </form>
             </div>
             """
+
 
             if pd.notna(row['Latitude']) and pd.notna(row['Longitude']):
                 # Add a larger random offset to each marker to avoid overlap
